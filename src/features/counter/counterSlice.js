@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 const initialState = {
   data: [],
   status: 'idle',
@@ -7,7 +8,7 @@ const initialState = {
 export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
   const response = await fetch(`https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json`);
   const data = await response.json();
-  return data.data;
+  return data;
 });
 const CarSlice = createSlice({
   name: 'cars',
@@ -28,4 +29,5 @@ const CarSlice = createSlice({
   }
 });
 export const getAllCars = (state) => state.cars.data;
+
 export default CarSlice.reducer;

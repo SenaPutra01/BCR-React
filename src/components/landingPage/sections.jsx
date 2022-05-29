@@ -3,7 +3,7 @@ import React from 'react'
 export default function sections() {
   return (
     <>
-<section className="home h-100" id="home">
+      <section className="home h-100" id="home">
         <div className="container container-home">
           <div className="row row-home">
             <div className="col-lg-6 col-sm-12 text-hero" data-aos="fade-bottom">
@@ -17,7 +17,7 @@ export default function sections() {
               </p>
               <div className="btn-home mt-3">
                 <a
-                  href="cariMobil.html"
+                  href="/cars"
                   className="btn btn-sewa py-2 px-3 px-lg-4 py-lg-3"
                 >
                   Mulai Sewa Mobil

@@ -9,7 +9,7 @@ export default function header() {
     aria-label="Main navigation"
   >
     <div className="container">
-      <a className="navbar-brand" href="#home">
+      <a className="navbar-brand" href="/">
         <span>BINAR</span>ENTAL CAR
       </a>
       <button

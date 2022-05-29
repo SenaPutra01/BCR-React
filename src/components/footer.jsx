@@ -41,26 +41,25 @@ export default function footer() {
         <span className="mt-3 title">Connect with us</span>
         <div className="icon-footer mt-3">
           <a href="#">
-            <img src="images/footer/icon_facebook.png" alt="" />
+            <img src="../assets/images/footer/icon_facebook.png" alt="" />
           </a>
           <a href="#">
-            <img src="images/footer/icon_instagram.png" alt="" />
+            <img src="../assets/images/footer/icon_instagram.png" alt="" />
           </a>
           <a href="#">
-            <img src="images/footer/icon_twitter.png" alt="" />
+            <img src="../assets/images/footer/icon_twitter.png" alt="" />
           </a>
           <a href="#">
-            <img src="images/footer/icon_mail.png" alt="" />
+            <img src="../assets/images/footer/icon_mail.png" alt="" />
           </a>
           <a href="#">
-            <img src="images/footer/icon_twitch.png" alt="" />
+            <img src="../assets/images/footer/icon_twitch.png" alt="" />
           </a>
         </div>
       </div>
       <div className="col-lg-3 col-md-6 col4 mt-4 mt-lg-0">
         <p className="title">©Copyright 2022 All Right Reserve</p>
         <span className="menu">
-          {" "}
           <a href="#">Built by Sena Putra</a>
         </span>
       </div>

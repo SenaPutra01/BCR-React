@@ -17,20 +17,21 @@ export default function hero() {
               </p>
               <div className="btn-home mt-3">
                 <a
-                  href="cariMobil.html"
-                  className="btn btn-sewa py-2 px-3 px-lg-2 py-lg-3"
+                  href="/cars"
+                  className="btn btn-sewa py-2 px-3 px-lg-4 py-lg-3"
                 >
                   Mulai Sewa Mobil
                 </a>
               </div>
             </div>
             <div className="col-lg-6 col-sm-12 image-hero">
-              <img src="images/hero/car.png" className="car" />
+              <img src="../assets/images/hero/car.png" className="car" />
               <div className="bg-car" />
             </div>
           </div>
         </div>
       </section>
+      
     </div>
   )
 }
