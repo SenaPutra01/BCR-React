@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+//import 'boxicons'
 import { getAllCars, fetchCars } from '../../features/counter/counterSlice';
 
 export default function Body() {
@@ -13,28 +14,48 @@ export default function Body() {
   const carsStatus = useSelector((state) => state.cars.status);
   const error = useSelector((state) => state.cars.error);
 
-  const filterCars = () =>{
-    const filteredCar =  cars.filter(item => {
-      let datetime = new Date(tanggal + " " + waktu)
-      let date = new Date(item.available);
-      let newDate = date.getTime()
+  // const filterCars = () =>{
+  //   const filteredCar =  cars.filter(item => {
+  //     let datetime = new Date(tanggal + " " + waktu)
+  //     let date = new Date(item.available);
+  //     let newDate = date.getTime()
       
-      const beforeEpochTime = datetime.getTime()
-      let filterTanggal = newDate > beforeEpochTime;
-      let filterCapacity = item.capacity <= capacity;
-      return filterCapacity && filterTanggal;
-    })
-    setCarsFilter(filteredCar);
-    console.log(filteredCar)
-  };
+  //     const beforeEpochTime = datetime.getTime()
+  //     let filterTanggal = newDate > beforeEpochTime;
+  //     let filterCapacity = item.capacity <= capacity;
+  //     return filterCapacity && filterTanggal;
+  //   })
+  //   setCarsFilter(filteredCar);
+  //   console.log(filteredCar)
+  // };
   
   useEffect(() => {
     if (carsStatus === 'idle') {
       dispatch(fetchCars());
     }
+    if(carsStatus === 'succeeded'){
+      setCarsFilter(cars);
+    }
     console.log("CarsStatus", carsStatus);
   }, [carsStatus, dispatch]);
 
+  const doFilterCars = ( ) => {
+    // const filterResult = cars.filter((item) => item.capacity === 4);
+    // setCarsFilter(filterResult);
+
+    const filteredCar =  cars.filter((item) => {
+      let datetime = new Date(tanggal + " " + waktu)
+      let date = new Date(item.availableAt);
+      let newDate = date.getTime()
+      
+      const beforeEpochTime = datetime.getTime()
+      let filterTanggal = newDate > beforeEpochTime;
+      let filterCapacity = item.capacity >= capacity;
+      return filterCapacity;
+    })
+    setCarsFilter(filteredCar);
+    console.log(filteredCar);
+  }
 
   let content;
   if (carsStatus === 'loading') {
@@ -53,7 +74,7 @@ export default function Body() {
                   aria-label="Default select example"
                   id="form_driver"
                 >
-                  <option value="" disabled="" selected="" hidden="">
+                  <option value="" disabled selected hidden>
                     Pilih Driver
                   </option>
                   <option value="Dengan supir">Dengan supir</option>
@@ -64,7 +85,7 @@ export default function Body() {
                 <label htmlFor="tanggal" className="form-label">Tanggal</label>
                 <input
                   type="date"
-                  id="form_date"
+                  id="tanggal"
                   name="form_date"
                   defaultValue=""
                   className="form-control"
@@ -75,22 +96,7 @@ export default function Body() {
               <div className="col-lg">
                 <label className="form-label">Waktu Jemput/Ambil</label>
                 <div className="time">
-                  <select
-                    name="form_time"
-                    className="form-select time-form"
-                    aria-label="Default select example"
-                    id="form_time"
-                    onChange={(e) => setWaktu((e.target.value))}
-                  >
-                    <option value="" disabled="" selected="" hidden="">
-                      Pilih Waktu
-                    </option>
-                    <option value="08:00">08.00     WIB</option>
-                    <option value="09:00">09.00     WIB</option>
-                    <option value="10:00">10.00     WIB</option>
-                    <option value="11:00">11.00     WIB</option>
-                    <option value="12:00">12.00     WIB</option>
-                  </select>
+                  <input type="time" id="waktu" className="form-control" placeholder="00:00" onChange={(e) => setWaktu((e.target.value))} />
                   <i className="fa-solid fa-clock" />
                 </div>
               </div>
@@ -100,7 +106,7 @@ export default function Body() {
                   <input
                     type="number"
                     name="form_capacity"
-                    id="form_capacity"
+                    id="capacity"
                     defaultValue=""
                     className="form-control"
                     placeholder="Jumlah Penumpang"
@@ -110,7 +116,7 @@ export default function Body() {
                 </div>
               </div>
               <div className="col-lg-2">
-                <button className="btn btn-cari" id="load-btn" onClick={filterCars}>
+                <button className="btn btn-cari" id="load-btn" onClick={doFilterCars}>
                   Cari Mobil
                 </button>
                 <button id="clear-btn" hidden disabled>
@@ -120,9 +126,11 @@ export default function Body() {
             </div>
           </div>
         </div>
+
+
         <div className='container'>
         <div id="cars-container" className='row'>
-            {cars.map(
+            {carsFilter.map(
               (item) => {
                 return(
                   <div key={item.id} className='col-lg-4 col-md-12 col-sm-12'>
