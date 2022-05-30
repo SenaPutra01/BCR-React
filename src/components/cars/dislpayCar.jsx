@@ -4,30 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllCars, fetchCars } from '../../features/counter/counterSlice';
 
 export default function Body() {
-  const [carsFilter, setCarsFilter] = useState([])
-  const [capacity, setCapacity] = useState()
-  const [waktu, setWaktu] = useState()
-  const [tanggal, setTanggal] = useState()
-
+  
   const dispatch = useDispatch();
   const cars = useSelector(getAllCars);
   const carsStatus = useSelector((state) => state.cars.status);
   const error = useSelector((state) => state.cars.error);
-
-  // const filterCars = () =>{
-  //   const filteredCar =  cars.filter(item => {
-  //     let datetime = new Date(tanggal + " " + waktu)
-  //     let date = new Date(item.available);
-  //     let newDate = date.getTime()
-      
-  //     const beforeEpochTime = datetime.getTime()
-  //     let filterTanggal = newDate > beforeEpochTime;
-  //     let filterCapacity = item.capacity <= capacity;
-  //     return filterCapacity && filterTanggal;
-  //   })
-  //   setCarsFilter(filteredCar);
-  //   console.log(filteredCar)
-  // };
+  
+  const [carsFilter, setCarsFilter] = useState([]);
+  const [capacity, setCapacity] = useState();
+  const [waktu, setWaktu] = useState();
+  const [tanggal, setTanggal] = useState();
   
   useEffect(() => {
     if (carsStatus === 'idle') {
@@ -39,22 +25,20 @@ export default function Body() {
     console.log("CarsStatus", carsStatus);
   }, [carsStatus, dispatch]);
 
-  const doFilterCars = ( ) => {
-    // const filterResult = cars.filter((item) => item.capacity === 4);
-    // setCarsFilter(filterResult);
-
-    const filteredCar =  cars.filter((item) => {
-      let datetime = new Date(tanggal + " " + waktu)
+  const doFilterCars = ( ) =>{ 
+    const filterCarResult =  cars.filter((item) => {
+      let dateTime = new Date(tanggal + " " + waktu)
       let date = new Date(item.availableAt);
+      let epochTime = dateTime.getTime()
       let newDate = date.getTime()
       
-      const beforeEpochTime = datetime.getTime()
-      let filterTanggal = newDate > beforeEpochTime;
-      let filterCapacity = item.capacity >= capacity;
-      return filterCapacity;
+      let availableFilter = item.available === true;
+      let dateFilter = newDate < epochTime;
+      let capacityFilter = item.capacity >= capacity;
+      return dateFilter && availableFilter && capacityFilter;
     })
-    setCarsFilter(filteredCar);
-    console.log(filteredCar);
+    setCarsFilter(filterCarResult);
+    console.log(filterCarResult);
   }
 
   let content;
@@ -90,13 +74,13 @@ export default function Body() {
                   defaultValue=""
                   className="form-control"
                   placeholder="Pilih Tanggal"
-                  onChange={(e) => setTanggal((e.target.value))}
+                  onChange={(e) => setTanggal((e.target.value))} required
                 />
               </div>
               <div className="col-lg">
                 <label className="form-label">Waktu Jemput/Ambil</label>
                 <div className="time">
-                  <input type="time" id="waktu" className="form-control" placeholder="00:00" onChange={(e) => setWaktu((e.target.value))} />
+                  <input type="time" id="waktu" className="form-control" placeholder="00:00" onChange={(e) => setWaktu((e.target.value))} required/>
                   <i className="fa-solid fa-clock" />
                 </div>
               </div>
@@ -110,7 +94,7 @@ export default function Body() {
                     defaultValue=""
                     className="form-control"
                     placeholder="Jumlah Penumpang"
-                    onChange={(e) => setCapacity(Number(e.target.value))}
+                    onChange={(e) => setCapacity(Number(e.target.value))} required
                   />
                   <i className="fa-solid fa-user-group" />
                 </div>
