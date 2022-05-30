@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-//import 'boxicons'
 import { getAllCars, fetchCars } from '../../features/counter/counterSlice';
+import pictCalendar from '../../assets/images/fi_calendar.svg';
+import pictSetting from '../../assets/images/fi_settings.svg';
+import pictUser from '../../assets/images/fi_users.svg';
 
 export default function Body() {
   
@@ -111,22 +113,21 @@ export default function Body() {
           </div>
         </div>
 
-
         <div className='container'>
         <div id="cars-container" className='row'>
             {carsFilter.map(
               (item) => {
                 return(
-                  <div key={item.id} className='col-lg-4 col-md-12 col-sm-12'>
-                    <div className="card" style={{padding: '20px', width: '300px'}}>
+                  <div key={item.id} className='col-lg-4 col-md-6 col-sm-12 ms-4'>
+                    <div className="card" style={{ padding: '10px', width: '300px'}}>
                       <img src={item.image} alt="" className="card-img-top" style={{ height:'200px', objectFit: 'cover' }}/>
-                    <div className="card-body w-100">
+                    <div className="card-body">
                       <p className="card-title" style={{ fontWeight: '400' }}>{item.model}</p>
                       <p style={{ fontWeight:'700' }}>Rp{item.rentPerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} / hari</p>
                       <p>{item.description.slice(0, 38)}</p>
-                      <p>{item.capacity} orang</p>
-                      <p> {item.transmission}</p>
-                      <p> Tahun {item.year}</p>
+                      <p><img src={pictUser} alt="" style={{ width:'16px' }}/> {item.capacity} orang</p>
+                      <p><img src={pictSetting} alt="" style={{ width:'16px' }}/> {item.transmission}</p>
+                      <p><img src={pictCalendar} alt="" style={{ width:'16px' }}/> Tahun {item.year}</p>
                       <p>{item.available}</p>
                       <button id="cari" type="button" className="btn btn-success text-light w-100">Pilih Mobil</button>
                     </div>

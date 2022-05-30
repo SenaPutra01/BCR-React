@@ -1,10 +1,8 @@
-// https://devsaurus.com/add-redux
 import LandingPage from "./pages/landingPage";
 import Cars from "./pages/displayCar/cars"
 import Navbar from "./components/header"
 import Footer from "./components/footer"
 import "./style/cars.css"
-import "./features/counter/counter.css"
 import {
   Routes,
   Route,
